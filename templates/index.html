@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReelCraft Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <aside class="hero">
+        <div class="hero__glow"></div>
+        <div class="hero__content">
+          <h1>Create Stunning Reels in Minutes</h1>
+          <p>
+            Design scene-by-scene stories, add rhythmic vibes, and export a ready-to-share reel.
+            No video editing skills required — just your ideas, and we’ll craft the motion.
+          </p>
+
+          <div class="hero__features">
+            <div>
+              <span class="icon">🎬</span>
+              <strong>Dynamic Scenes</strong>
+              <p>Stack as many scenes as you need, customize colours & pacing.</p>
+            </div>
+            <div>
+              <span class="icon">🎵</span>
+              <strong>Auto Groove</strong>
+              <p>Generate a built-in beat track that matches your tempo.</p>
+            </div>
+            <div>
+              <span class="icon">⚡</span>
+              <strong>Instant Export</strong>
+              <p>Deliver 9:16 or 16:9 reels ready for every social platform.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="workspace__header">
+          <div>
+            <h2>Reel Blueprint</h2>
+            <p>Define each scene, choose a vibe, and hit generate — we’ll take it from there.</p>
+          </div>
+          <div class="workspace__meta">
+            <label class="field">
+              <span class="field__label">Project Title</span>
+              <input type="text" id="projectTitle" placeholder="Product Launch Teaser" value="Product Launch Teaser" />
+            </label>
+
+            <label class="field">
+              <span class="field__label">Aspect Ratio</span>
+              <select id="aspectRatio">
+                <option value="9:16" selected>Vertical 9:16</option>
+                <option value="16:9">Landscape 16:9</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span class="field__label">Tempo (BPM)</span>
+              <input type="number" id="tempo" min="60" max="160" value="100" />
+            </label>
+          </div>
+        </header>
+
+        <section class="scene-builder">
+          <div class="scene-builder__toolbar">
+            <div>
+              <h3>Scenes</h3>
+              <p>Add as many as you like — keep them punchy for high retention.</p>
+            </div>
+            <button id="addSceneBtn" class="button button--primary">
+              <span>+</span>
+              Add Scene
+            </button>
+          </div>
+
+          <div id="sceneList" class="scene-list"></div>
+        </section>
+
+        <footer class="workspace__footer">
+          <div class="status" id="status">
+            <span class="status__dot"></span>
+            <p>Set up your scenes, then generate your reel.</p>
+          </div>
+          <button id="generateBtn" class="button button--accent">
+            Generate Reel
+          </button>
+        </footer>
+
+        <section class="results" id="results" hidden>
+          <div class="results__card">
+            <div class="results__header">
+              <h3>Your Reel Is Ready</h3>
+              <p class="results__timestamp"></p>
+            </div>
+            <p>
+              Download the MP4 file and share it straight to your favourite platform. Want to tweak it?
+              Adjust your scenes and generate again.
+            </p>
+            <a id="downloadLink" class="button button--outline" download>
+              Download Reel
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="sceneTemplate">
+      <article class="scene-card">
+        <div class="scene-card__header">
+          <h4>Scene <span class="scene-card__index"></span></h4>
+          <button class="scene-card__remove" title="Remove Scene">✕</button>
+        </div>
+        <label class="field">
+          <span class="field__label">Narrative Text</span>
+          <textarea rows="3" class="scene-text" placeholder="Hook your audience with an attention grabber..."></textarea>
+        </label>
+
+        <div class="scene-card__grid">
+          <label class="field">
+            <span class="field__label">Duration (s)</span>
+            <input type="number" class="scene-duration" min="1" max="10" value="3" />
+          </label>
+          <label class="field">
+            <span class="field__label">Accent Colour</span>
+            <input type="color" class="scene-accent" value="#FF9F1C" />
+          </label>
+          <label class="field">
+            <span class="field__label">Divider Style</span>
+            <select class="scene-divider">
+              <option value="wave">Wave</option>
+              <option value="zigzag">Zig-Zag</option>
+              <option value="line">Straight</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="scene-card__grid">
+          <label class="field">
+            <span class="field__label">Background Gradient — Top</span>
+            <input type="color" class="scene-bg-start" value="#11001C" />
+          </label>
+          <label class="field">
+            <span class="field__label">Background Gradient — Bottom</span>
+            <input type="color" class="scene-bg-end" value="#32004B" />
+          </label>
+        </div>
+      </article>
+    </template>
+
+    <div id="toast" class="toast" hidden></div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}" type="module"></script>
+  </body>
+</html>
+
